@@ -1,20 +1,24 @@
-#include <cstdlib>
-#include "lib.h"
+#define _CRT_SECURE_NO_WARNINGS
 
 
 
-#define EXIT_SUCCESS    0
+#include <iostream>
+#include <string>
+
+#include "lib.hpp"
+
+
 
 const string prompt = get_prompt();
 
 
 
 void main_loop();
-int input(char * line, char ** args);
+int input(char* line, char** args);
 
 
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
 
     main_loop();
 
@@ -26,8 +30,8 @@ int main(int argc, char **argv) {
 
 void main_loop() {
 
-    char *line;     // 
-    char **args;    // 
+    char* line = nullptr;     // 
+    char** args = nullptr;    // 
     int status;
 
     do {
@@ -40,11 +44,9 @@ void main_loop() {
 
 
 
-int input(char * line, char ** args) {
+int input(char* line, char** args) {
 
-    printf("%s", prompt.c_str());
-
-    
+    cout << prompt;
 
     return 1;
 
