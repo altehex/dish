@@ -9,26 +9,21 @@
 
 
 
-const string prompt = get_prompt();
+using namespace std;
 
 
 
-void main_loop();
+ryml::csubstr prompt = get_prompt();
+
+
+
 int input(char* line, char** args);
 
 
 
 int main(int argc, char** argv) {
 
-    main_loop();
-
-    return EXIT_SUCCESS;
-
-}
-
-
-
-void main_loop() {
+    cout << config["welcome"].val();
 
     char* line = nullptr;     // 
     char** args = nullptr;    // 
@@ -40,6 +35,8 @@ void main_loop() {
 
     } while (status);
 
+    return 0;
+
 }
 
 
@@ -48,7 +45,7 @@ int input(char* line, char** args) {
 
     cout << prompt;
 
-    return 1;
+    return 0;
 
 }
 
