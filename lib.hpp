@@ -1,6 +1,7 @@
 #pragma once
 #define RYML_SINGLE_HDR_DEFINE_NOW
 
+#include <iostream>
 #include "parser.hpp"
 #include <string>
 #include "ryml.hpp"
@@ -22,7 +23,7 @@ struct Result {
 };
 
 
-ryml::Tree config = parse_file("dish.yml");
+const ryml::Tree config = parse_file("dish.yml");
 
 
 
@@ -34,8 +35,10 @@ ryml::Tree config = parse_file("dish.yml");
 
 
 
-string get_prompt() {
+ryml::csubstr get_prompt() {
 
-    return config["prompt"].val().str;
+    ryml::csubstr prompt = config["prompt"].val();
+    return prompt;
 
 }
+
