@@ -1,9 +1,16 @@
 #pragma once
 
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 
 #include <cstdio>
+#include <cstring>
 #include <iostream>
 #include <string>
+#include <vector>
+
 #include "ryml.hpp"
 
 
@@ -11,19 +18,36 @@ using namespace std;
 
 
 
-template<class container>
-container file_get_contents(const char * filename);
+vector<string> split(string command) {
 
+	vector<string> tokens = {};
+	string token = strtok(&*( command.begin() ), " ");
 
+	while ( static_cast<bool>(token.c_str()) ) {
 
-ryml::Tree parse_file(const char * filename) {
+		tokens.emplace_back(token);
+		token = strtok(nullptr, " ");
 
-	string contents = file_get_contents<string>(filename);
-	cout << contents;
-	return ryml::parse_in_arena(ryml::to_csubstr(contents));
+	}
+
+// Do something so it won't crash
+
+	return tokens;
 
 }
 
+
+
+template<class container>
+container file_get_contents(const char * filename);
+
+// YAML parser(rapidyaml)
+ryml::Tree parse_file(const char * filename) {
+
+	string contents = file_get_contents<string>(filename);
+	return ryml::parse_in_arena(ryml::to_csubstr(contents));
+
+}
 
 
 template<class container>
