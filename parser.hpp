@@ -14,23 +14,24 @@
 #include "ryml.hpp"
 
 
+
 using namespace std;
 
 
 
 vector<string> split(string command) {
 
+    command.append(" END");
+	
 	vector<string> tokens = {};
 	string token = strtok(&*( command.begin() ), " ");
 
-	while ( static_cast<bool>(token.c_str()) ) {
+	while (token != "END") {
 
 		tokens.emplace_back(token);
 		token = strtok(nullptr, " ");
 
 	}
-
-// Do something so it won't crash
 
 	return tokens;
 
