@@ -1,9 +1,14 @@
 #pragma once
 #define RYML_SINGLE_HDR_DEFINE_NOW
 
+
+
+#include <cstdio>
 #include <iostream>
-#include "parser.hpp"
 #include <string>
+
+#include "define.hpp"
+#include "parser.hpp"
 #include "ryml.hpp"
 
 
@@ -17,28 +22,18 @@ using namespace std;
 // |
 // |+--+--+--+--+--+--+--+--+--+--+--+--
 
-struct Result {
-    void* result;
+template<class T>
+union result {
+    T result;
     int error;
 };
 
 
-const ryml::Tree config = parse_file("dish.yml");
+//
+// dish.yml
+//----------------------
+const ryml::Tree config = (fopen("dish.yml", "rb") == nullptr) ? 
+    parse_file("dish/default.yml") : 
+    parse_file("dish.yml");
 
-
-
-// |+--+--+--+--+--+--+--+--+--+--+--+--
-// |
-// |        FUNCTIONS
-// |
-// |+--+--+--+--+--+--+--+--+--+--+--+--
-
-
-
-ryml::csubstr get_prompt() {
-
-    ryml::csubstr prompt = config["prompt"].val();
-    return prompt;
-
-}
 
