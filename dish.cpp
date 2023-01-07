@@ -1,11 +1,12 @@
-#define _CRT_SECURE_NO_WARNINGS
 
 
 
 #include <iostream>
 #include <string>
 
+#include "define.hpp"
 #include "lib.hpp"
+#include "parser.hpp"
 
 
 
@@ -13,7 +14,7 @@ using namespace std;
 
 
 
-ryml::csubstr prompt = get_prompt();
+const ryml::csubstr prompt = config["prompt"].val();
 
 
 
@@ -23,7 +24,7 @@ int input(char* line, char** args);
 
 int main(int argc, char** argv) {
 
-    cout << config["welcome"].val();
+    cout << config["welcome"].val() << '\n';
 
     char* line = nullptr;     // 
     char** args = nullptr;    // 
@@ -33,9 +34,9 @@ int main(int argc, char** argv) {
 
         status = input(line, args);
 
-    } while (status);
+    } while (!status);
 
-    return 0;
+    return EXIT_SUCCESS;
 
 }
 
@@ -45,7 +46,12 @@ int input(char* line, char** args) {
 
     cout << prompt;
 
-    return 0;
+    string command;
+    getline(std::cin >> std::ws, command, '\n');
+
+    vector<string> parsed = split(command);
+
+    return EXIT_SUCCESS;
 
 }
 
