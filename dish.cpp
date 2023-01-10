@@ -1,10 +1,6 @@
-
-
-
 #include <iostream>
 #include <string>
 
-#include "define.hpp"
 #include "lib.hpp"
 #include "parser.hpp"
 
@@ -18,42 +14,35 @@ const ryml::csubstr prompt = config["prompt"].val();
 
 
 
-int input(char* line, char** args);
+int input();
 
 
 
-int main(int argc, char** argv) {
-
+int main() 
+{
     cout << config["welcome"].val() << '\n';
-
-    char* line = nullptr;     // 
-    char** args = nullptr;    // 
     int status;
 
-    do {
-
-        status = input(line, args);
-
+    do 
+    {
+        status = input();
     } while (!status);
 
     return EXIT_SUCCESS;
-
 }
 
 
 
-int input(char* line, char** args) {
-
+int input() 
+{
     cout << prompt;
 
     string command;
     getline(std::cin >> std::ws, command, '\n');
 
     vector<string> parsed = split(command);
+        
+    fork(parsed[0]);
 
     return EXIT_SUCCESS;
-
 }
-
-
-// Use Result type!!!
