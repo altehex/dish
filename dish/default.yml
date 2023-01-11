@@ -17,4 +17,4 @@ welcome:  |
 
   [ • ] Type 'help' for the list of built-in commands
 
-prompt: "┌─(dish•___)-[~]\n└$ "
+prompt: "┌─(dish•___)-[~]\n└$ " # stolen from kali linux
