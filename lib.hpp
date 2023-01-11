@@ -6,12 +6,33 @@
 #include <cstdio>
 #include <iostream>
 #include <string>
+#include <vector>
 
+//#include "builtins.hpp"
 #include "parser.hpp"
 #include "ryml.hpp"
 
 
 using namespace std;
+
+
+
+ryml::Tree no_dish_yml ();
+
+
+
+// |+--+--+--+--+--+--+--+--+--+--+--+--
+// |
+// |        STRUCTURES
+// |
+// |+--+--+--+--+--+--+--+--+--+--+--+--
+
+//
+// dish.yml
+//----------------------
+const ryml::Tree config = (fopen("dish.yml", "rb") == nullptr) ? 
+    no_dish_yml() : 
+    parse_file("dish.yml");
 
 
 
@@ -23,31 +44,20 @@ using namespace std;
 
 ryml::Tree no_dish_yml () 
 {
-    cout << "Can't find 'dish.yml'.\n" <<
-    "Using the 'dish/default.yml' file.\n";
+    cout << "[ ! ] Can't find 'dish.yml'.\n" <<
+            "[ • ] Using the 'dish/default.yml' file.\n";
     return parse_file("dish/default.yml");
 }
 
-//
-// dish.yml
-//----------------------
-const ryml::Tree config = (fopen("dish.yml", "rb") == nullptr) ? 
-    no_dish_yml() : 
-    parse_file("dish.yml");
 
-
-
-void fork(string command) 
+void fork(vector<string> command) 
 {
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
 
-//    if (command == "quit" || 
-  //      command == "exit") return -1;
-
     if ( !CreateProcessA(
         NULL,
-        &*(command.begin()),
+        &*(command[0].begin()),
         NULL,
         NULL,
         false,
@@ -57,8 +67,8 @@ void fork(string command)
         &si,
         &pi ) 
     ) {
-        cout << "Failed to start a process\n" <<
-                "Error code: " << GetLastError() << '\n';
+        cout << "[ ! ] Failed to start a process\n" <<
+                "[ ! ] Error code: " << GetLastError() << '\n';
     } else {
         WaitForSingleObject(
             pi.hProcess,
@@ -68,4 +78,10 @@ void fork(string command)
         CloseHandle(pi.hProcess);
         CloseHandle(pi.hThread);
     }
+}
+
+
+int exec(vector<string> command) 
+{
+    fork(command);
 }
