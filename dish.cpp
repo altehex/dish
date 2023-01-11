@@ -20,13 +20,11 @@ int input();
 
 int main() 
 {
-    cout << config["welcome"].val() << '\n';
-    int status;
+    SetConsoleOutputCP(CP_UTF8);
 
-    do 
-    {
-        status = input();
-    } while (!status);
+    cout << config["welcome"].val() << '\n';
+    
+    do {} while (!input());
 
     return EXIT_SUCCESS;
 }
@@ -40,9 +38,7 @@ int input()
     string command;
     getline(std::cin >> std::ws, command, '\n');
 
-    vector<string> parsed = split(command);
-        
-    fork(parsed[0]);
+    fork(split(command));
 
     return EXIT_SUCCESS;
 }
