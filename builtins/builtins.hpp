@@ -14,15 +14,19 @@ using namespace std;
 
 int cd(vector<string> args);
 // alias "dishwasher"
-int clear();
-int echo(string line);
-int help();
+int clear(vector<string> args);
+int echo(vector<string> args);
+int help(vector<string> args);
 
 
 
-const unordered_map<string, function<vector<string>>(string)> builtins = 
-{
-    {"cd", &cd},
-    {"dishwasher", &clear},
-    {"clear", &clear}
+using builtin = int (*)(vector<string>);
+
+unordered_map<string, builtin> 
+builtins = {
+    {"cd",          &cd     },
+    {"clear",       &clear  },
+    {"dishwasher",  &clear  },
+    {"echo",        &echo   },
+    {"help",        &help   }
 };
