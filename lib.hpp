@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-//#include "builtins.hpp"
+#include "builtins/builtins.hpp"
 #include "parser.hpp"
 #include "ryml.hpp"
 
@@ -35,7 +35,6 @@ const ryml::Tree config = (fopen("dish.yml", "rb") == nullptr) ?
     parse_file("dish.yml");
 
 
-
 // |+--+--+--+--+--+--+--+--+--+--+--+--
 // |
 // |        STRUCTURES
@@ -50,8 +49,18 @@ ryml::Tree no_dish_yml ()
 }
 
 
-void fork(vector<string> command) 
+int exec(vector<string> command) 
 {
+    // calling builtins
+    if (builtins.find(command[0]) != builtins.end()) 
+    {
+        string key = command[0];
+        builtins[key.c_str()](command);
+        return EXIT_SUCCESS;
+    }
+
+
+    // calling some other program
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
 
@@ -60,7 +69,7 @@ void fork(vector<string> command)
         &*(command[0].begin()),
         NULL,
         NULL,
-        false,
+        true,
         0,
         NULL,
         NULL,
@@ -77,11 +86,8 @@ void fork(vector<string> command)
 
         CloseHandle(pi.hProcess);
         CloseHandle(pi.hThread);
+        
     }
-}
 
-
-int exec(vector<string> command) 
-{
-    fork(command);
+    return EXIT_SUCCESS;
 }
