@@ -35,12 +35,6 @@ const ryml::Tree config = (fopen("dish.yml", "rb") == nullptr) ?
     parse_file("dish.yml");
 
 
-// |+--+--+--+--+--+--+--+--+--+--+--+--
-// |
-// |        STRUCTURES
-// |
-// |+--+--+--+--+--+--+--+--+--+--+--+--
-
 ryml::Tree no_dish_yml () 
 {
     SetConsoleOutputCP(CP_UTF8);
