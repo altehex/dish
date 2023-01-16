@@ -46,6 +46,13 @@ ryml::Tree no_dish_yml ()
 }
 
 
+
+// |+--+--+--+--+--+--+--+--+--+--+--+--
+// |
+// |        FUNCTIONS
+// |
+// |+--+--+--+--+--+--+--+--+--+--+--+--
+
 int exec(vector<string> command) 
 {
     // calling some other program
