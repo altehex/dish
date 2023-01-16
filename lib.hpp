@@ -43,23 +43,17 @@ const ryml::Tree config = (fopen("dish.yml", "rb") == nullptr) ?
 
 ryml::Tree no_dish_yml () 
 {
+    SetConsoleOutputCP(CP_UTF8);
+
     cout << "[ ! ] Can't find 'dish.yml'.\n" <<
             "[ • ] Using the 'dish/default.yml' file.\n";
+
     return parse_file("dish/default.yml");
 }
 
 
 int exec(vector<string> command) 
 {
-    // calling builtins
-    if (builtins.find(command[0]) != builtins.end()) 
-    {
-        string key = command[0];
-        builtins[key.c_str()](command);
-        return EXIT_SUCCESS;
-    }
-
-
     // calling some other program
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
@@ -76,9 +70,19 @@ int exec(vector<string> command)
         &si,
         &pi ) 
     ) {
+
+        // calling builtins
+        if (builtins.find(command[0]) != builtins.end()) 
+        {
+            string key = command[0];
+            return builtins[key.c_str()](command);
+        }
+
         cout << "[ ! ] Failed to start a process\n" <<
                 "[ ! ] Error code: " << GetLastError() << '\n';
+
     } else {
+        
         WaitForSingleObject(
             pi.hProcess,
             INFINITE
