@@ -1,4 +1,5 @@
 # *dinner shell*
+
 ```
   ════════════════════════════════════
   ▄▄      ▄▄    ▄▄        ▄▄        ▄▄ 
@@ -16,7 +17,8 @@
   ════════════════════════════════════
   d  i  s  h    s  h  e  l  l    0 . 0
  ```
-  a shell i wrote for fun
-  only for шindows. but i'll add the linuх support too
+a shell i wrote for fun
+
+only for шindows. but i'll add the linuх support too
 
 based on this tutorial: https://brennan.io/2015/01/16/write-a-shell-in-c/
