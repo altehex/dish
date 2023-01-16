@@ -58,7 +58,7 @@ int exec(vector<string> command)
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
 
-    if ( !CreateProcessA(
+    if ( CreateProcessA(
         NULL,
         &*(command[0].begin()),
         NULL,
@@ -70,19 +70,7 @@ int exec(vector<string> command)
         &si,
         &pi ) 
     ) {
-
-        // calling builtins
-        if (builtins.find(command[0]) != builtins.end()) 
-        {
-            string key = command[0];
-            return builtins[key.c_str()](command);
-        }
-
-        cout << "[ ! ] Failed to start a process\n" <<
-                "[ ! ] Error code: " << GetLastError() << '\n';
-
-    } else {
-        
+    
         WaitForSingleObject(
             pi.hProcess,
             INFINITE
@@ -90,8 +78,20 @@ int exec(vector<string> command)
 
         CloseHandle(pi.hProcess);
         CloseHandle(pi.hThread);
-        
+
+        return EXIT_SUCCESS;
+
     }
 
+
+    // calling builtins
+    if (builtins.find(command[0]) != builtins.end()) 
+    {
+        return builtins[command[0].c_str()](command);
+    }
+
+
+    cout << "[ ! ] No such command: " << command[0] <<"\n";
+        
     return EXIT_SUCCESS;
 }
