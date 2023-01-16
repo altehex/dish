@@ -9,5 +9,9 @@
 - [ ] ls
 - [ ] cd
 
+### Better maintenance
+- [ ] tests
+- [ ] docs
+
 ### dish for loonix!!!
 - [ ] someday
