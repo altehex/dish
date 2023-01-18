@@ -49,9 +49,9 @@ string get_line()
         getline(std::cin >> std::ws, line, '\n');
         processedLine += line;
 
-        if (line.back() == '>' || line.back() == '\\') 
+        if (line.back() == '\\') 
         {
-            cout << "<";
+            cout << ">";
             processedLine.pop_back();
             processedLine += ' ';
 
