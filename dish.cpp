@@ -33,8 +33,32 @@ int input()
 {
     cout << prompt;
 
-    string command;
-    getline(std::cin >> std::ws, command, '\n');
+    string command = get_line();
 
     return exec(split(command));;
+}
+
+
+string get_line() 
+{
+    string line;
+    string processedLine;
+
+    while (processedLine.back() != '\n') 
+    {
+        getline(std::cin >> std::ws, line, '\n');
+        processedLine += line;
+
+        if (line.back() == '>' || line.back() == '\\') 
+        {
+            cout << "<";
+            processedLine.pop_back();
+            processedLine += ' ';
+
+        } else processedLine += '\n';
+    }
+
+    processedLine.pop_back();
+
+    return processedLine;
 }
